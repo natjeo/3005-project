@@ -1,0 +1,80 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+  script(src="/javascripts/analytics.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+  // page content:
+  if loggedIn
+
+    if userPage==userObj.email
+      section.pageContentUsers
+          div.profileInfo
+            img(id='profile' src='/images/user_circle.png')
+            section
+              h2 Hi #{userObj.u_firstname} #{userObj.u_lastname}!
+          div.textBox
+              h2 YOUR WHEREABOUTS
+              br
+              p Email on File: #{userObj.email}
+              br
+              p Phone Number on File: #{userObj.u_phone}
+              br
+
+              if(userObj.hasAddress)
+                p Address on File:
+                p #{userObj.street}
+                p #{userObj.postalcode}
+                p #{userObj.city}
+                p #{userObj.province}
+                p #{userObj.country}
+                br
+              else
+                p Address not yet added.
+
+          div.textBox
+            h2 YOUR ORDER HISTORY
+            br
+
+            if userOrder.length>=1
+              each order in userOrder
+                a(href=`/orders/${order.o_id}`)
+                  p Order Number: #{order.o_id}
+                  br
+            else
+              p Time to go shopping - No Order History.
+    else
+      div.results_center
+        p You do not have access to other user's account details.
+  else
+    div.results_center
+      p Please log-in to view your account details.
+
+
+  if loggedIn
+    if userObj.isadmin
+
+      section.whiteAlign_tight
+        br
+        h2 STORE ANALYTICS:
+        br
+        div
+          select(id="selectAnalytics" style="width:100px")
+            option(value="date") By Date
+            option(value="author") By Author
+            option(value="genre") By Genre
+            option(value="publisher") By Publisher
+          button.fillButton(type='button' id='getAnalytics') SEARCH
+        div
+          table(style='width:100%', border='1' id='displayTable')
+            tr#tableHeader
+            tr#tableData
+
+        br
+        br

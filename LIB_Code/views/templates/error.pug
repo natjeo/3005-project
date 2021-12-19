@@ -1,0 +1,20 @@
+include ../mixins/metadata.pug
+
+doctype html
+html
+  //- HEAD metadata info
+  +tab_info
+
+  //- BODY page info
+  body
+    block content
+      section.loginContent
+        img.logo(src='/images/LIB_logo.png' alt='logoHeader')
+
+        section.genericPage
+          p= message
+          h2= error.status
+          br
+          p Sorry, page was not found :-(
+          p Please try again
+          img(src='/images/error_broken_robot.png' alt='')

@@ -1,0 +1,26 @@
+extends ../templates/layout
+
+block content
+  script(src="../javascripts/user-login.js" defer)
+
+  section.loginContent
+    img.logo(src='/images/LIB_logo.png' alt='logoHeader')
+
+    h1 LOGIN
+    br
+    form(action="#")
+
+      div.username
+        input.inputText(type="text" id="username" placeholder="EMAIL")
+        p#errorMsgName.redError
+
+      div.password
+        input.inputText(type="password" id="password" placeholder="PASSWORD")
+        p#errorMsgPassword.redError
+      br
+      br
+
+      p Not a Member?
+      a(class='yellowBold', href='/users/new') CREATE ACCOUNT
+
+      button.fillButton(type='button' id='loginUser') NEXT

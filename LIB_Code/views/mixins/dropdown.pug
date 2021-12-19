@@ -1,0 +1,29 @@
+mixin dropdown_login(loggedIn, userObj)
+      li
+        a(href='http://localhost:3000')
+          img(src='/images/search_icon_dark.png')
+      li
+        if loggedIn
+          div#imageContainer
+            img(id='profileMenu' src='/images/profile_icon.png')
+            div#positionBox
+              div#dropdown
+                ul#menuItems
+                  li
+                    | Logged in as
+                    b(style="color: #E48739")  #{userObj.u_firstname} #{userObj.u_lastname}
+                  br
+                  li
+                    a(href='/users/'+userObj.email) My Profile
+                  li
+                    a#logout Logout
+        else
+          div#imageContainer
+            img.profileCircle(id='profileMenu' src='/images/LIB_tabLogo.png')
+            div#positionBox
+              div#dropdown
+                ul#menuItems
+                  li
+                    a(href='/users/login') Login
+                  li
+                    a(href='/users/new') Sign Up

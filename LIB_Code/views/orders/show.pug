@@ -1,0 +1,67 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+
+  script(src="/javascripts/book-show.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+    div.pageAlign
+      h1 ORDER NUMBER #{orderDetails[0].o_id}
+      br
+      p Order Placed On: #{orderDetails[0].orderplaceddate}
+      p Status: #{orderDetails[0].status}
+      p Tracking Info: #{trackingDetails[0].trackingnumber}
+      br
+
+      if (orderAddress.length == 1)
+        p Billing & Shipping Address:
+          p=orderAddress[0].street
+          p=orderAddress[0].postalcode
+          p=orderAddress[0].city
+          p=orderAddress[0].province
+          p=orderAddress[0].country
+      else
+        p Shipping Address:
+          p=orderAddress[0].street
+          p=orderAddress[0].postalcode
+          p=orderAddress[0].city
+          p=orderAddress[0].province
+          p=orderAddress[0].country
+          br
+        p Billing Address:
+          p=orderAddress[1].street
+          p=orderAddress[1].postalcode
+          p=orderAddress[1].city
+          p=orderAddress[1].province
+          p=orderAddress[1].country
+
+      if orderDetails[0].status === 'Order Shipped'
+        br
+        p Current Status:
+        p Processed at transit facility.
+        p 77 King St W	M5K 1A2	Toronto	Ontario	Canada
+        br
+        img(src='/images/tracking_map.png')
+        br
+
+      br
+      p Total Order Quantity: #{orderDetails[0].totalqty}
+      p Total Order Price: #{orderDetails[0].totalprice}
+      br
+
+      h2 PRODUCTS
+      for order in orderDetails
+        a(href=`/books/${order.isbn}`)
+          p <em>Title:</em> #{order.title}
+          p <em>ISBN:</em> #{order.isbn}
+          p <em>Quantity:</em> #{order.soldqty}
+          p <em>Price:</em> #{order.price}
+          p <em>Subtotal:</em> #{order.subtotal}
+
+          br

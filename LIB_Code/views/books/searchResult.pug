@@ -1,0 +1,33 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+    div.results_center
+      div.pageAlign
+        h1 SEARCH RESULTS
+
+        if (searchRes.length)
+          div
+            each res in searchRes
+              a(href=`/books/${res.isbn}`)
+                if (res.a_firstname)
+                    p Author: #{res.a_firstname} #{res.a_lastname}
+                if (res.genre)
+                    p Genre: #{res.genre}
+                if (res.compname)
+                    p Company Name: #{res.compname}
+                p ISBN: #{res.isbn}
+                p Title: #{res.title}
+                p Year: #{res.year}
+                p Price: #{res.price}
+                br
+
+        else
+          p Sorry, there was no match for your search in our database :-(.

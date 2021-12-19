@@ -1,0 +1,52 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+  script(src="/javascripts/cart-checkout.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+  // cart items:
+  section.results_center
+    div
+      h2 ITEMS IN CART:
+      p
+      div
+        if (userCart)
+          if (userCart.length>0)
+            div.textBox
+              each item in userCart
+                a(href=`/books/${item.isbn}`)
+                  div.movieResult
+                    div.movieDesc
+                      h2= item.title
+                      p Price: $#{item.price}
+                      p Quantity: #{item.qty}
+                      p Subtotal: $#{item.subtotal}
+                br
+          else
+            div.textBox
+              p There are no items in your cart.
+
+        else
+          div.textBox
+            p There are no items in your cart.
+
+  // checkout options:
+  div
+    if userCart
+      section.checkoutBox
+        hr.line
+        div.checkoutContianer
+          if loggedIn
+            if  userCart.length>0
+              button.fillButton()#CheckOutButton
+                b CHECKOUT
+            else
+              p Please add items to checkout.
+          else
+            p Please log-in to checkout.

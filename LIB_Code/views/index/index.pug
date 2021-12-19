@@ -1,0 +1,42 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+  script(src="/javascripts/search-orders.js" defer)
+  script(src="/javascripts/search.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+  // search
+  section.greyBackground
+
+    div.searchRes
+      div
+        form(style="width: 410px")
+          input.inputText.small(id="input-text" type="text" placeholder="SEARCH KEYWORD...")
+      div
+        select(id="dropdownTable" style="width:90px")
+          option(value="book") Book
+          option(value="author") Author
+          option(value="genre") Genre
+          option(value="publisher") Publisher
+      div
+        button.fillButton(type='button' id='findBookButton') SEARCH
+    div.searchRes
+      p#errFind.redError
+
+    div.searchRes
+      form(style="width: 500px")
+        input.inputText.small(id="input-order" type="text" placeholder="LOOK UP ORDER...")
+      div
+        button.fillButton(type='button' id='findOrderButton') SEARCH
+    div.searchRes
+      p#errMsgOrderID.redError
+
+
+  div.bodyContent
+    img.heroImage(src='/images/hero_image_3.png' alt='')

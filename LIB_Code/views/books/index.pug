@@ -1,0 +1,28 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+  section.navShadow
+    div.results
+      if (loggedIn)
+        if (userObj.isadmin)
+          button.fillButton(type='button' onclick="location.href = '/books/new'") ADD A BOOK
+
+    div.results
+      each book in bookList
+        if (book.stockqty>-1)
+          a(href=`/books/${book.isbn}`)
+            div.movieResult
+              img.roundCorner(src='/images/book_img.png')
+              div.movieDesc
+                h2= book.title
+                p= book.year
+                p $#{book.price}

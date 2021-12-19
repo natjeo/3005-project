@@ -1,0 +1,33 @@
+extends ../templates/layout
+
+block content
+  script(src="../javascripts/user-new.js" defer)
+
+  section.loginContent
+    img.logo(src='/images/LIB_logo.png' alt='logoHeader')
+
+    h1 SIGN UP
+    br
+    form(action="#")
+      div.names
+        div.firstName
+          input.name(class="nameFields" type="text" id="firstName" placeholder="FIRST NAME")
+          p#errorMsgfName.redError
+        div.lastName
+          input.name(class="nameFields" type="text" id="lastName" placeholder="LAST NAME")
+          p#errorMsglName.redError
+      div.phone
+        input.inputText(type="text" id="phone" placeholder="PHONE")
+        p#errorMsgphone.redError
+      div.email
+        input.inputText(type="text" id="email" placeholder="EMAIL ADDRESS")
+        p#errorMsgEmail.redError
+      div.passWord
+        input.inputText(type="password" id="password" placeholder="PASSWORD")
+        p#errorMsgPassword.redError
+      br
+      br
+      p Already Have an Account?
+      a(class='yellowBold', href='/users/login') LOGIN TO ACCOUNT
+
+      button.fillButton(type='button' id='createNewUser') NEXT

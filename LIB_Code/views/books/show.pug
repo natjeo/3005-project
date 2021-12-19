@@ -1,0 +1,68 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+  script(src="/javascripts/book-show.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+  section.whiteAlign
+    div.movieInfo
+      h1= foundBook.title
+      br
+      br
+      h2 AUTHOR(S)
+      for i in foundAuthors
+        p #{i.a_firstname} #{i.a_lastname}
+      br
+      h2 PUBLISHER(S)
+      for i in foundPublisher
+        p #{i.compname}
+      br
+      br
+
+      div.posterBox
+        img.showBook(src='/images/book_img.png')
+        div.descText
+          div.line1
+            div.box1
+              h2 PUBLISHED YEAR
+              p= foundBook.year
+              br
+              div.box1
+              h2 ISBN
+              p= foundBook.isbn
+              br
+              h2 PRICE
+              p $#{foundBook.price}
+              br
+              h2 NUMBER OF PAGES
+              p= foundBook.numpages
+              br
+              h2 COPIES IN STOCK
+              p= foundBook.stockqty
+              br
+
+            div.box1
+              h2 GENRE
+              for i in foundGenre
+                p= i.genre
+              br
+              br
+          div.line2
+            if (foundBook.stockqty>=1)
+              button.fillButton()#addtocart
+                b ADD TO CART
+            if (foundBook.stockqty===0)
+              p Book currently Out of Stock
+            if (foundBook.stockqty===-1)
+                p Book Unavailable.
+          div.line2
+            if (loggedIn)
+              if (userObj.isadmin && foundBook.stockqty!==-1)
+                button.fillButton()#removeBook
+                  b REMOVE BOOK

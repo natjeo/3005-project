@@ -1,0 +1,68 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+  script(src="/javascripts/cart-checkout.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+  // begin checkout process:
+  if (loggedIn, userCart)
+    section.getUserInfo
+
+      // input shipping address:
+      h2 SHIPPING ADDRESS
+      br
+      form(action="#")
+        div.names
+          div.firstName
+            input.name(class="nameFields" type="text" id="fName" placeholder="FIRST NAME (OPTIONAL)")
+          div.lastName
+            input.name(class="nameFields" type="text" id="lName" placeholder="LAST NAME (OPTIONAL)")
+        div.userName
+          input.inputText(type="text" id="s_street" placeholder="STREET")
+        div.userName
+          input.inputText(type="text" id="s_city" placeholder="CITY")
+        div.userName
+          input.inputText(type="text" id="s_state" placeholder="PROVINCE")
+        div.userName
+          input.inputText(type="text" id="s_postal" placeholder="POSTAL CODE")
+        div.userName
+          input.inputText(type="text" id="s_country" placeholder="COUNTRY")
+        br
+      p Billing Address same as Shipping?
+      input(type="checkbox" name="billingShipping")
+
+      br
+      br
+
+      // input billing address:
+      section#hide
+        h2 BILLING ADDRESS
+        br
+        form(action="#")
+          div.names
+            div.firstName
+              input.name(class="nameFields" type="text" id="fName" placeholder="FIRST NAME (OPTIONAL)")
+            div.lastName
+              input.name(class="nameFields" type="text" id="lName" placeholder="LAST NAME (OPTIONAL)")
+          div.userName
+            input.inputText(type="text" id="b_street" placeholder="STREET")
+          div.userName
+            input.inputText(type="text" id="b_city" placeholder="CITY")
+          div.userName
+            input.inputText(type="text" id="b_state" placeholder="PROVINCE")
+          div.userName
+            input.inputText(type="text" id="b_postal" placeholder="POSTAL CODE")
+          div.userName
+            input.inputText(type="text" id="b_country" placeholder="COUNTRY")
+          br
+          br
+
+      // submit:
+      button.fillButton()#createOrderButton
+        b NEXT

@@ -1,0 +1,61 @@
+extends ../templates/layout
+include ../mixins/dropdown.pug
+
+block content
+  script(src="/javascripts/generic.js" defer)
+  script(src="/javascripts/book-new.js" defer)
+
+  // navigation bar:
+  section.headerContainer
+    include ../templates/header
+      +dropdown_login(loggedIn, userObj)
+
+  section.pageAlign
+    h1 ADD A BOOK
+
+    h2 BOOK INFORMATION:
+    form(action="#")
+      input.inputText(type="text" id="isbn" placeholder="ISBN (ie. 9780141439518)")
+      p#errorMsgISBN.redError
+      br
+      input.inputText(type="text" id="title" placeholder="TITLE (ie. Pride and Prejudice)")
+      br
+      input.inputText(type="text" id="year" placeholder="YEAR (ie. 2009)")
+      br
+      input.inputText(type="text" id="price" placeholder="PRICE (ie. 10.12)")
+      br
+      input.inputText(type="text" id="royalties" placeholder="ROYALTIES (ie. 0.05)")
+      br
+      input.inputText(type="text" id="numPages" placeholder="NUMBER OF PAGES (ie. 315)")
+      br
+      input.inputText(type="text" id="stockQty" placeholder="STOCK QTY (ie. 10)")
+      br
+      br
+
+    div.fields
+      h2 AUTHOR INFORMATION:
+      input.inputText(type="text" id="a_firstname" placeholder="FIRST NAME")
+      br
+      input.inputText(type="text" id="a_lastName" placeholder="LAST NAME")
+      br
+      br
+
+    div.fields
+      h2 PUBLISHER INFORMATION:
+      input.inputText(type="text" id="compname" placeholder="PUBLISHER NAME")
+      br
+      input.inputText(type="text" id="p_phone" placeholder="PUBLISHER PHONE")
+      br
+      input.inputText(type="text" id="p_email" placeholder="PUBLISHER EMAIL")
+      br
+      input.inputText(type="text" id="p_bankAccount" placeholder="BANK ACCOUNT")
+      br
+      br
+
+    div.fields
+      h2 GENRE INFORMATION:
+      input.inputText(type="text" id="genre" placeholder="GENRE")
+      br
+      br
+
+    button.fillButton(type='button' id='createBook') CREATE

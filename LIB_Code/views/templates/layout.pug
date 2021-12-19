@@ -1,0 +1,15 @@
+include ../mixins/metadata.pug
+
+doctype html
+html
+  //- HEAD metadata info
+  +tab_info
+
+  //- BODY page info
+  body
+    //- content pulled from other pug templates
+    block content
+      section.bodyContent
+
+  //- FOOTER info
+  include footer
